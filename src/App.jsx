@@ -46,6 +46,16 @@ function ProfileCard({ name, description, status, onDelete, onUpdate }) {
               />
               Complete
             </label>
+            <label>
+              <input
+                type="radio"
+                name="editStatus"
+                value="In Progress"
+                checked={editStatus === "In Progress"}
+                onChange={(e) => setEditStatus(e.target.value)}
+              />
+              In Progress
+            </label>
           </div>
 
           <div className="edit-buttons">
@@ -94,6 +104,10 @@ export default function App() {
   const [users, setUsers] = useState([
     { name: "Buy Groceries", description: "Milk, Bread, Eggs", status: "Pending" },
     { name: "Finish Project", description: "Complete React App", status: "Complete" },
+    { name: "Read Book", description: "Complete 2 chapters of current book", status: "In Progress" },
+    { name: "Learn React Hooks", description: "Practice useState and useEffect examples", status: "In Progress" },
+    { name: "Prepare Assignment", description: "Complete FLAT module notes", status: "Pending" },
+    { name: "Update Resume", description: "Add new projects and skills", status: "Pending" }
   ]);
 
   const [newName, setNewName] = useState("");
@@ -150,6 +164,10 @@ export default function App() {
                   Pending
                 </label>
                 <label>
+                  <input type="radio" name="newStatus" value="In Progress" checked={newStatus === "In Progress"} onChange={(e) => setNewStatus(e.target.value)} />
+                  In Progress
+                </label>
+                <label>
                   <input type="radio" name="newStatus" value="Complete" checked={newStatus === "Complete"} onChange={(e) => setNewStatus(e.target.value)} />
                   Complete
                 </label>
@@ -171,6 +189,7 @@ export default function App() {
         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option value="All">All</option>
           <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
           <option value="Complete">Complete</option>
         </select>
       </div>
