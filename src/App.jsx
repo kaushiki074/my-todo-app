@@ -1,31 +1,17 @@
 import { useState, useEffect } from "react";
-
 import "./App.css";
 
-
-
 function ProfileCard({ name, description, status, onDelete, onUpdate }) {
-
   const [isEditing, setIsEditing] = useState(false);
-
   const [editName, setEditName] = useState(name);
-
   const [editDescription, setEditDescription] = useState(description);
-
   const [editStatus, setEditStatus] = useState(status);
 
-
-
   if (isEditing) {
-
     return (
-
       <div className="edit-card">
-
         <input
-
           type="text"
-
           value={editName}
 
           onChange={(e) => setEditName(e.target.value)}
@@ -204,19 +190,22 @@ function ProfileCard({ name, description, status, onDelete, onUpdate }) {
 
 export default function App() {
 
+  const generateId = () =>
+    crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
   const [users, setUsers] = useState([
 
-    { name: "Buy Groceries", description: "Milk, Bread, Eggs", status: "Pending" },
+    { id: generateId(), name: "Buy Groceries", description: "Milk, Bread, Eggs", status: "Pending" },
 
-    { name: "Finish Project", description: "Complete React App", status: "Complete" },
+    { id: generateId(), name: "Finish Project", description: "Complete React App", status: "Complete" },
 
-    { name: "Read Book", description: "Complete 2 chapters of current book", status: "In Progress" },
+    { id: generateId(), name: "Read Book", description: "Complete 2 chapters of current book", status: "In Progress" },
 
-    { name: "Learn React Hooks", description: "Practice useState and useEffect examples", status: "In Progress" },
+    { id: generateId(), name: "Learn React Hooks", description: "Practice useState and useEffect examples", status: "In Progress" },
 
-    { name: "Prepare Assignment", description: "Complete FLAT module notes", status: "Pending" },
+    { id: generateId(), name: "Prepare Assignment", description: "Complete FLAT module notes", status: "Pending" },
 
-    { name: "Update Resume", description: "Add new projects and skills", status: "Pending" }
+    { id: generateId(), name: "Update Resume", description: "Add new projects and skills", status: "Pending" }
 
   ]);
 
@@ -256,7 +245,10 @@ export default function App() {
 
     if (newName.trim() !== "") {
 
-      setUsers([...users, { name: newName, description: newDescription, status: newStatus }]);
+      setUsers([
+        ...users,
+        { id: generateId(), name: newName, description: newDescription, status: newStatus },
+      ]);
 
       setNewName("");
 
@@ -272,13 +264,13 @@ export default function App() {
 
 
 
-  const deleteUser = (index) => setUsers(users.filter((_, i) => i !== index));
+  const deleteUser = (id) => setUsers(users.filter((user) => user.id !== id));
 
 
 
-  const updateUser = (index, n, d, s) => {
+  const updateUser = (id, n, d, s) => {
 
-    setUsers(users.map((u, i) => (i === index ? { ...u, name: n, description: d, status: s } : u)));
+    setUsers(users.map((user) => (user.id === id ? { ...user, name: n, description: d, status: s } : user)));
 
   };
 
@@ -392,7 +384,7 @@ export default function App() {
 
       {filteredUsers.map((user, index) => (
 
-        <ProfileCard key={index} {...user} onDelete={() => deleteUser(index)} onUpdate={(n, d, s) => updateUser(index, n, d, s)} />
+        <ProfileCard key={user.id} {...user} onDelete={() => deleteUser(user.id)} onUpdate={(n, d, s) => updateUser(user.id, n, d, s)} />
 
       ))}
 
