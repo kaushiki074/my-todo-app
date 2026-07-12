@@ -52,14 +52,14 @@ export default function App() {
   const [newBio, setNewBio] = useState("");
   const [filter, setFilter] = useState("All");
 
-  // useEffect(() => {
-  //   const savedUsers = JSON.parse(localStorage.getItem("myUsers"));
-  //   if (savedUsers) setUsers(savedUsers);
-  // }, []);
+  useEffect(() => {
+    const savedUsers = JSON.parse(localStorage.getItem("myUsers"));
+    if (savedUsers) setUsers(savedUsers);
+  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("myUsers", JSON.stringify(users));
-  // }, [users]);
+  useEffect(() => {
+    localStorage.setItem("myUsers", JSON.stringify(users));
+  }, [users]);
 
   const addUser = () => {
     if (newName.trim() !== "") {
