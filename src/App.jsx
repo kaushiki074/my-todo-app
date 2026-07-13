@@ -117,14 +117,14 @@ export default function App() {
   const [filter, setFilter] = useState("All");
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    const savedUsers = JSON.parse(localStorage.getItem("myUsers"));
-    if (savedUsers) setUsers(savedUsers);
-  }, []);
+  // useEffect(() => {
+  //   const savedUsers = JSON.parse(localStorage.getItem("myUsers"));
+  //   if (savedUsers) setUsers(savedUsers);
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("myUsers", JSON.stringify(users));
-  }, [users]);
+  // useEffect(() => {
+  //   localStorage.setItem("myUsers", JSON.stringify(users));
+  // }, [users]);
 
   const addUser = () => {
     if (newName.trim() !== "") {
